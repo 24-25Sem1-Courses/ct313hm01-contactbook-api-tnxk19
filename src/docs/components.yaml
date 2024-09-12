@@ -1,0 +1,64 @@
+# common references
+components:
+  schemas:
+    Contact:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          example: Contact name
+        email:
+          type: string
+          format: email
+          description: contact email
+        address:
+          type: string
+          description: contact address
+        phone:
+          type: string
+          description: Contact phone number 
+        favorite:     
+          type: integer
+          enum: [0,1]
+          default: 0
+          description: favorite contact
+        avatar:
+          type: string
+          readOnly: true
+          description: contact avater file path
+        avatarFile:
+          type: string
+          format: binary
+          writenly: true
+          description: contact avatar file  
+
+  responses:
+    '200NoData':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status 
+                enum: 
+                  - success
+                data:
+                  type: object
+                  nullable: true
+                  default: nullable
+                  description: The respone data  
+
+  parameters:
+    contactIdParam:
+      name: id
+      description: Contact ID
+      required: true
+      in: path
+      schema:
+        type: integer
+
