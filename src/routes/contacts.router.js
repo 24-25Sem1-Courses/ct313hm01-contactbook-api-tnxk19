@@ -92,7 +92,7 @@ module.exports.setup = (app) => {
  *          responses:
  *              200:
  *                  description: All contacts deleted
- *                  $ref: '#/components/respon/200NoData'
+ *                  $ref: '#/components/responses/200NoData'
  */
     router.delete('/', contactsController.deleteAllContacts);
     router.all('/',methodNotAllowed);

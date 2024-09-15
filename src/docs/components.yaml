@@ -50,8 +50,8 @@ components:
                 data:
                   type: object
                   nullable: true
-                  default: nullable
-                  description: The respone data  
+                  default: null
+                  description: The response data  
 
   parameters:
     contactIdParam:
