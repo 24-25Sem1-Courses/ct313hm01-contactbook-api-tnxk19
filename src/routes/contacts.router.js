@@ -1,6 +1,8 @@
 const express = require('express');
 const contactsController = require('../controllers/contacts.controller');
 const { methodNotAllowed } = require('../controllers/errors.controller');
+const avatarUpload = require('../middlewares/avatar-upload.middleware');
+
 const swaggerJSDoc = require('swagger-jsdoc');
 const { swaggerUi } = require('../docs/swagger');
 const router = express.Router();
@@ -23,6 +25,8 @@ module.exports.setup = (app) => {
  *         description: Filter by contact name
  *         schema:
  *           type: string
+ *       - $ref: '#/components/parameters/limitParam'
+ *       - $ref: '#/components/parameters/pageParam'
  *     tag:
  *        - contacts
  *     responses:
@@ -44,6 +48,8 @@ module.exports.setup = (app) => {
  *                                  type: array
  *                                  items: 
  *                                      $ref: '#/components/schemas/Contact'
+ *                                  metadata:
+ *                                      $ref: '#/components/schemas/PaginationMetadata'
  */
     router.get('/', contactsController.getContactsByFilter);
  
@@ -80,7 +86,7 @@ module.exports.setup = (app) => {
  *                              contact:  
  *                                      $ref: '#/components/schemas/Contact'
  */    
-    router.post('/', contactsController.createContact);
+    router.post('/',avatarUpload, contactsController.createContact);
 /**
  * @openapi
  *  /api/v1/contacts:
@@ -138,7 +144,7 @@ module.exports.setup = (app) => {
  *          requestBody:
  *              required: true
  *              content:
- *                  mutipart/form-data:
+ *                  multipart/form-data:
  *                      schema:
  *                          $ref: '#/components/schemas/Contact'
  *          tags:
@@ -161,7 +167,7 @@ module.exports.setup = (app) => {
  *                                          contact:
  *                                              $ref: '#/components/schemas/Contact'
  */
-    router.put('/:id', contactsController.updateContact);
+    router.put('/:id', avatarUpload, contactsController.updateContact);
 /**
  * @openapi
  *  /api/v1/contacts/{id}:
@@ -172,7 +178,7 @@ module.exports.setup = (app) => {
  *              - $ref: '#/components/parameters/contactIdParam'
  *          tags:
  *              - contacts
- *          response:
+ *          responses:
  *              200:
  *                  description: Contact deleted
  *                  $ref: '#/components/responses/200NoData'

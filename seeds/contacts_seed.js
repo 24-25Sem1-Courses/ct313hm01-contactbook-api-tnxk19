@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+
 function createContact() {
   return {
     name: faker.person.fullName(),
