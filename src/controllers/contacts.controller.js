@@ -142,7 +142,6 @@ async function deleteAllContacts(req, res, next) {
 
 }
 
-
 module.exports = {
     getContactsByFilter,
     deleteAllContacts,
